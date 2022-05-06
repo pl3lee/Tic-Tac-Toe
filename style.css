@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@500&display=swap');
+* {
+    box-sizing: border-box;
+    /* border: 1px solid red; */
+}
+body {
+    background-color: #171717;
+    width: 100vw;
+    height: 100vh;
+    margin: 0px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    padding: 50px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 5fr 1fr;
+    color: white;
+    gap: 20px;
+}
+.header {
+    grid-row: 1 / 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: xx-large;
+}
+
+.main-section {
+    grid-row: 2 / 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.gameboard {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(100px, max(10vw, 10vh)));
+    grid-template-rows: repeat(3, minmax(100px, max(10vw, 10vh)));
+}
+
+#box0, #box1, #box2, #box3, #box4, #box5 {
+    border-bottom: 2px solid white;
+}
+#box0, #box1, #box3, #box4, #box6, #box7 {
+    border-right: 2px solid white;
+}
+
+div.gridbox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.footer {
+    grid-row: 3 / 4;
+}
+
+.turn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.turn > div {
+    font-size: xx-large;
+}
+
+.material-icons-outlined.md-48 {
+    font-size: 48px;
+}
+
+.material-icons-outlined.md-100 {
+    font-size: 100px;
+}

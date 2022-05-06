@@ -5,10 +5,33 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
     <title>Tic-Tac-Toe</title>
 </head>
 <body>
-    
+    <div class="header">Tic Tac Toe</div>
+    <div class="main-section">
+        <div class="gameboard">
+            <div class="gridbox" id="box0">
+                <span class="material-icons-outlined md-100" id="currentPlayer">circle</span>
+            </div>
+            <div class="gridbox" id="box1"></div>
+            <div class="gridbox" id="box2"></div>
+            <div class="gridbox" id="box3"></div>
+            <div class="gridbox" id="box4"></div>
+            <div class="gridbox" id="box5"></div>
+            <div class="gridbox" id="box6"></div>
+            <div class="gridbox" id="box7"></div>
+            <div class="gridbox" id="box8"></div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="turn">
+            <div>Current Player:</div> 
+            <span class="material-icons-outlined md-48" id="currentPlayer">circle</span>
+            <!-- "clear" for cross -->
+        </div>
+    </div>
 </body>
 </html>

@@ -46,5 +46,45 @@ const Gameboard = (() => {
     };
     const checkTie = () => !checkWin() && checkFull();
     const getPosition = (position) => grid[position];
+
+    return {
+        makeMove,
+        checkFull,
+        checkWin,
+        checkTie,
+        getPosition
+    };
 })();
+
+const DisplayController = (() => {
+    const currentPlayerDisplay = document.querySelector("div.turn > span#currentPlayer");
+    const changeCurrentPlayer = () => {
+        if (currentPlayerDisplay.textContent == "circle") {
+            currentPlayerDisplay.textContent = "cross";
+        } else {
+            currentPlayerDisplay.textContent = "circle";
+        }
+    };
+    const updateGameBoard = () => {
+        let gridBoxes = document.querySelectorAll(div.gridbox);
+        gridBoxes.forEach((gridBox, index) => {
+            let update = Gameboard.getPosition(index);
+            if (update != "B") {
+                gridBox
+            }
+        })
+    };
+})();
+
+const GameController = (() => {
+    let currentPlayer = 'O';
+    const makeMove = (position) => {
+        Gameboard.makeMove(currentPlayer, position);
+        Gameboard.checkWin();
+    };
+})();
+
+
+
+
 
