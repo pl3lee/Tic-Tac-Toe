@@ -60,7 +60,7 @@ const DisplayController = (() => {
     const currentPlayerDisplay = document.querySelector("div.turn > span#currentPlayer");
     const changeCurrentPlayer = () => {
         if (currentPlayerDisplay.textContent == "circle") {
-            currentPlayerDisplay.textContent = "cross";
+            currentPlayerDisplay.textContent = "clear";
         } else {
             currentPlayerDisplay.textContent = "circle";
         }
@@ -72,25 +72,27 @@ const DisplayController = (() => {
             if (update == "O") {
                 gridBox.textContent = "circle"; 
             } else if (update == "X") {
-                gridBox.textContent = "cross";
+                gridBox.textContent = "clear";
             } else {
                 gridBox.textContent = "";
             }
         });
     };
+    const displayWin = (player) => {
+        // complete
+    };
+    const displayTie = () => {
+        //complete
+    };
     return {
         changeCurrentPlayer,
-        updateGameBoard
+        updateGameBoard,
+        displayWin,
+        displayTie
     };
 })();
 
-const GameController = (() => {
-    let currentPlayer = 'O';
-    const makeMove = (position) => {
-        Gameboard.makeMove(currentPlayer, position);
-        Gameboard.checkWin();
-    };
-})();
+
 
 const Player = (symbol) => {
     const makeMove = (position) => Gameboard.makeMove(symbol, position);
@@ -99,6 +101,45 @@ const Player = (symbol) => {
         makeMove
     }
 };
+
+const GameController = (() => {
+    let player1 = Player('O');
+    let player2 = Player('X');
+    let currentPlayer = player1;
+    const makeMove = (position) => {
+        let successful = Gameboard.makeMove(currentPlayer.symbol, position);
+        if (successful) {
+            let won = Gameboard.checkWin();
+            let tie = Gameboard.checkTie();
+            DisplayController.updateGameBoard();
+            DisplayController.changeCurrentPlayer();
+            if (won != false) {
+                DisplayController.displayWin(currentPlayer.symbol);
+                console.log("won!");
+            } else if (tie) {
+                DisplayController.displayTie();
+                console.log("tie!");
+            } else {
+                currentPlayer = (currentPlayer == player1) ? player2 : player1;
+            }
+        }         
+    };
+    return {
+        makeMove
+    };
+})();
+
+let gridBoxes = document.querySelectorAll(".gridbox");
+DisplayController.changeCurrentPlayer();
+DisplayController.updateGameBoard();
+gridBoxes.forEach(function (gridBox) {
+    gridBox.addEventListener("click", function (event) {
+        GameController.makeMove(Number(event.target.getAttribute("data-index")));
+        // console.log(Number(event.target.getAttribute("data-index")))
+        // console.log("made move")
+    });
+});
+
 
 
 
