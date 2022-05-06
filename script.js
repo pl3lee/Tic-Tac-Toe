@@ -46,13 +46,14 @@ const Gameboard = (() => {
     };
     const checkTie = () => !checkWin() && checkFull();
     const getPosition = (position) => grid[position];
-
+    const restartGame = () => grid.forEach((element, index) => grid[index] = 'B');
     return {
         makeMove,
         checkFull,
         checkWin,
         checkTie,
-        getPosition
+        getPosition,
+        restartGame
     };
 })();
 
@@ -79,10 +80,29 @@ const DisplayController = (() => {
         });
     };
     const displayWin = (player) => {
-        // complete
+        let modalText = document.querySelector(".modal > div > h1")
+        modalText.textContent = "Player " + player + " has won the game! Congratulations!";
+        let modal = document.querySelector(".modal");
+        modal.classList.toggle("closed");
+        toggleBlur();
+        modal.addEventListener("click", () => {
+            window.location.reload();
+        });
+        
     };
     const displayTie = () => {
-        //complete
+        let modalText = document.querySelector(".modal > div > h1")
+        modalText.textContent = "We have a tie!";
+        let modal = document.querySelector(".modal");
+        modal.classList.toggle("closed");
+        toggleBlur();
+        modal.addEventListener("click", () => {
+            window.location.reload();
+        });
+    };
+    const toggleBlur = () => {
+        let blur = document.querySelectorAll(".background");
+        blur.forEach((element) => element.classList.toggle("blurred"));
     };
     return {
         changeCurrentPlayer,
@@ -99,7 +119,7 @@ const Player = (symbol) => {
     return {
         symbol,
         makeMove
-    }
+    };
 };
 
 const GameController = (() => {
@@ -124,19 +144,24 @@ const GameController = (() => {
             }
         }         
     };
+    const restartGame = () => {
+        Gameboard.restartGame();
+        currentPlayer = player1;
+        DisplayController.changeCurrentPlayer();
+        DisplayController.updateGameBoard();
+    }
     return {
-        makeMove
+        makeMove,
+        restartGame
     };
 })();
 
 let gridBoxes = document.querySelectorAll(".gridbox");
 DisplayController.changeCurrentPlayer();
 DisplayController.updateGameBoard();
-gridBoxes.forEach(function (gridBox) {
-    gridBox.addEventListener("click", function (event) {
+gridBoxes.forEach((gridBox) => {
+    gridBox.addEventListener("click", (event) => {
         GameController.makeMove(Number(event.target.getAttribute("data-index")));
-        // console.log(Number(event.target.getAttribute("data-index")))
-        // console.log("made move")
     });
 });
 
