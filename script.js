@@ -66,13 +66,21 @@ const DisplayController = (() => {
         }
     };
     const updateGameBoard = () => {
-        let gridBoxes = document.querySelectorAll(div.gridbox);
+        let gridBoxes = document.querySelectorAll("div.gridbox > span");
         gridBoxes.forEach((gridBox, index) => {
             let update = Gameboard.getPosition(index);
-            if (update != "B") {
-                gridBox
+            if (update == "O") {
+                gridBox.textContent = "circle"; 
+            } else if (update == "X") {
+                gridBox.textContent = "cross";
+            } else {
+                gridBox.textContent = "";
             }
-        })
+        });
+    };
+    return {
+        changeCurrentPlayer,
+        updateGameBoard
     };
 })();
 
@@ -84,6 +92,13 @@ const GameController = (() => {
     };
 })();
 
+const Player = (symbol) => {
+    const makeMove = (position) => Gameboard.makeMove(symbol, position);
+    return {
+        symbol,
+        makeMove
+    }
+};
 
 
 
