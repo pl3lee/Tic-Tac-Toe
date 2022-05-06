@@ -99,3 +99,9 @@ div.gridbox {
 .blurred {
     filter: blur(5px);
 }
+
+.modal-content > h1 {
+    text-align: center;
+    font-size: 3vw
+    
+}
